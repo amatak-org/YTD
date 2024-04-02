@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% block css %}
+{% load static %}
+
+
 input[type=url] {
   border: 1px solid #FF0B2C;
   border-radius: 1px;
 }
 {% endblock css %}
+{% load analytics %}
 
 
 {% block content %}
@@ -22,14 +26,22 @@ input[type=url] {
 </div>
 
 <div id="card" class="mt-5">
+  <p> Useful Links</p>
+  <p></p><a class="" href="https://my.amatak.io/">eCommerce</a><p>
+  <p></p><a class="" href="https://delivery-7.com/">Restaurant & Delivery</a><p>
+  <p></p><a class="" href="https://my.amatak.io/">Automotive Parts</a><p>
+  <p></p><a class="" href="https://uteach.app">Online Learning</a><p>
+  <p></p><a class="" href="https://amatak.org/">OpenSource</a><p>
+  
+</div>
 
 </div>
 
 
-
-
-</div>
 {% endblock content %}
+
+
+
 
 {% block js %}
 $(document).ready(function(){

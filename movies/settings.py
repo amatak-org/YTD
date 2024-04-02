@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(PROJECT_DIR)
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,11 +38,14 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'google_analytics',
+    'pictures',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +90,16 @@ DATABASES = {
 }
 
 
+{
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "APP_DIRS": True,
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -123,11 +139,41 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/images/'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '/static')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_SSL_REDIRECT = True
+
+GOOGLE_ANALYTICS_MODEL = True
+
+
+
+# the following are defaults, but you can override them
+PICTURES = {
+    "BREAKPOINTS": {
+        "xs": 576,
+        "s": 768,
+        "m": 992,
+        "l": 1200,
+        "xl": 1400,
+    },
+    "GRID_COLUMNS": 12,
+    "CONTAINER_WIDTH": 1200,
+    "FILE_TYPES": ["WEBP"],
+    "PIXEL_DENSITIES": [1, 2],
+    "USE_PLACEHOLDERS": True,
+    "QUEUE_NAME": "pictures",
+    "PROCESSOR": "pictures.tasks.process_picture",
+
+}

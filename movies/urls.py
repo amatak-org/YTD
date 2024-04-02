@@ -16,10 +16,21 @@ Including another URLconf
 from app.views import detailsFunction, homePage,downloadFunction
 from django.contrib import admin
 from django.urls import path
+from django.urls import include, path
+from pictures.conf import get_settings
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',homePage,name="index"),
     path('details/',detailsFunction,name="details"),
     path('download/',downloadFunction,name="download")
 
+    
 ]
+if get_settings().USE_PLACEHOLDERS:
+    urlpatterns += [
+        path("_pictures/", include("pictures.urls")),
+    ]
+
