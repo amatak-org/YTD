@@ -15,7 +15,12 @@ from pathlib import Path
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+from selenium import webdriver
 
+chrome_options = webdriver.ChromeOptions()
+prefs = {'download.default_directory' : '/path/to/dir'}
+chrome_options.add_experimental_option('prefs', prefs)
+driver = webdriver.Chrome(chrome_options=chrome_options)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -152,8 +157,8 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-#SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
 
 GOOGLE_ANALYTICS_MODEL = True
 
